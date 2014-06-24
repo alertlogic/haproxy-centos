@@ -12,7 +12,7 @@ all:
 
 src:
 	[ -d tmp/SOURCES ] || mkdir -p tmp/SOURCES
-	[ -f $(CURDIR)/tmp/SOURCES/haproxy-1.5-dev18.tar.gz ] || wget -O $(CURDIR)/tmp/SOURCES/haproxy-1.5-dev18.tar.gz http://haproxy.1wt.eu/download/1.5/src/devel/haproxy-1.5-dev18.tar.gz
+	[ -f $(CURDIR)/tmp/SOURCES/haproxy-1.5.1.tar.gz ] || wget -O $(CURDIR)/tmp/SOURCES/haproxy-1.5.1.tar.gz http://www.haproxy.org/download/1.5/src/haproxy-1.5.1.tar.gz
 	cp $(CURDIR)/conf/* $(CURDIR)/tmp/SOURCES/
 
 package: src all
