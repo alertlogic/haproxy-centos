@@ -6,7 +6,7 @@
 %define haproxy_confdir %{_sysconfdir}/haproxy
 %define haproxy_datadir %{_datadir}/haproxy
 
-%define version 1.5.1
+%define version 1.5.3
 %define release 2
 
 Name: haproxy
