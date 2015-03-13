@@ -1,5 +1,6 @@
 ifndef TAG
 export TAG := $(shell git describe)
+export VERSION := $(TAG)
 endif
 
 TAG_PARTS = $(subst -, , $(TAG))
@@ -12,7 +13,7 @@ all:
 
 src:
 	[ -d tmp/SOURCES ] || mkdir -p tmp/SOURCES
-	[ -f $(CURDIR)/tmp/SOURCES/haproxy-1.5.4.tar.gz ] || wget -O $(CURDIR)/tmp/SOURCES/haproxy-1.5.4.tar.gz http://www.haproxy.org/download/1.5/src/haproxy-1.5.4.tar.gz
+	[ -f $(CURDIR)/tmp/SOURCES/haproxy-$(VERSION).tar.gz ] || wget -O $(CURDIR)/tmp/SOURCES/haproxy-$(VERSION).tar.gz http://www.haproxy.org/download/1.5/src/haproxy-$(VERSION).tar.gz
 	cp $(CURDIR)/conf/* $(CURDIR)/tmp/SOURCES/
 
 package: src all
