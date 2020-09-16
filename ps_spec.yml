@@ -10,8 +10,9 @@ stages:
       ALPS_SERVICE_VERSION: 1.5.10
     commands:
       - echo AMI build started on `date`
-      - source ~/.bashrci
-      - sudo yum -y install wget
+      - source ~/.bashrc
+      - sudo yum-config-manager --disable alertlogic
+      - sudo yum install -y wget
       - 'git config --global --add url.git://algithub.pd.alertlogic.net/.insteadOf git@algithub.pd.alertlogic.net:'
       - git config core.warnAmbiguousRefs false
       - make package
