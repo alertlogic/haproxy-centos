@@ -1,0 +1,43 @@
+version: 1.0
+service_name: haproxy-centos
+
+stages:
+  - name: build
+    image: 422372788747.dkr.ecr.us-east-1.amazonaws.com/al-erlang:latest 
+    compute_size: small      # small, medium, large
+    env:
+      ALPS_SERVICE_NAME: haproxy-centos
+      ALPS_SERVICE_VERSION: 1.5.10
+    commands:
+      - echo AMI build started on `date`
+      - source ~/.bashrc
+      - git config core.warnAmbiguousRefs false
+      - make package
+      - mkdir /artifact_folder
+      - rm -rf tmp/RPMS/x86_64/*debuginfo*
+      - cp tmp/RPMS/x86_64/*.rpm /artifact_folder/
+    when:
+      - tag: ['?\d+.\d+.\d+']
+      - cli: build_ami
+    outputs:
+      file: /artifact_folder/*
+    packagers:
+      - ami:
+          input:
+            repo: alertlogic/al-ps-ops
+          pre_install_commands:
+            - uname -a
+          post_install_commands:
+            - uname -a
+          base: alcd-base-route105-ami2-v1.2.8
+  - name: tests
+    image: 422372788747.dkr.ecr.us-east-1.amazonaws.com/al-erlang:latest
+    when:
+      - pull_request
+      - pull_request:
+          trigger_phrase: 'test it'
+      - cli: tests
+    commands:
+      - source ~/.bashrc
+      - make package
+
