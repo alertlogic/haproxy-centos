@@ -3,7 +3,7 @@ service_name: haproxy-centos
 
 stages:
   - name: build
-    image: 422372788747.dkr.ecr.us-east-1.amazonaws.com/al-erlang:21.3.8.16 
+    image: 422372788747.dkr.ecr.us-east-1.amazonaws.com/al-erlang:latest 
     compute_size: small      # small, medium, large
     env:
       ALPS_SERVICE_NAME: haproxy-centos
@@ -11,9 +11,6 @@ stages:
     commands:
       - echo AMI build started on `date`
       - source ~/.bashrc
-      - sudo yum-config-manager --disable alertlogic
-      - sudo yum install -y wget
-      - 'git config --global --add url.git://algithub.pd.alertlogic.net/.insteadOf git@algithub.pd.alertlogic.net:'
       - git config core.warnAmbiguousRefs false
       - make package
       - mkdir /artifact_folder
@@ -34,7 +31,7 @@ stages:
             - uname -a
           base: alcd-base-route105-ami2-v1.2.8
   - name: tests
-    image: 422372788747.dkr.ecr.us-east-1.amazonaws.com/al-erlang:21.3.8.16
+    image: 422372788747.dkr.ecr.us-east-1.amazonaws.com/al-erlang:latest
     when:
       - pull_request
       - pull_request:
