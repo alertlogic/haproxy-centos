@@ -17,7 +17,7 @@ stages:
       - rm -rf tmp/RPMS/x86_64/*debuginfo*
       - cp tmp/RPMS/x86_64/*.rpm /artifact_folder/
     when:
-      - tag: ['?\d+.\d+.\d+']
+      - tag: ['\d+.\d+.\d+']
       - cli: build_ami
     outputs:
       file: /artifact_folder/*
