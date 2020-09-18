@@ -32,6 +32,7 @@ stages:
           base: alcd-base-route105-ami2-v1.2.8
   - name: tests
     image: 422372788747.dkr.ecr.us-east-1.amazonaws.com/al-erlang:latest
+    compute_size: small      # small, medium, large
     when:
       - pull_request
       - pull_request:
